@@ -1,4 +1,3 @@
-import json
 import xmltodict
 from xml.etree.ElementTree import Element, tostring
 from xmljson import badgerfish as bf
@@ -24,7 +23,7 @@ unison_detune = [0, 1, 2, 3, 4, 5, 6]
 
 # ----------- Patch Points --------------
 # If you dont want certain parameter be in the random patch point. You can simply remove it from the list 
-PATCH_CABLES_MAX = 15  # randomly patch cables from place to places. Allowing maximum of 15 cable
+PATCH_CABLES_MAX = 15  # random patch cables from place to place. Allowing maximum of 15 cable
 patch_from = ["random", "envelope1", "envelope2", "lfo1", "lfo2", "compressor", "velocity", "note"]
 patch_destination = ["volume",
                      "carrier1Feedback", "carrier2Feedback",
@@ -164,7 +163,6 @@ for k in range(0, generating):
                 # Ensure is not patch already
                 if [s, d] not in occuredCheck:
                     occuredCheck.append([s, d])
-                    print(dic)
                     ls[effectedParams[i]]["patchCable"].append(dic)
 
         else:
@@ -182,13 +180,14 @@ for k in range(0, generating):
     # 		numOctaves="2"
     # 		syncLevel="7" />
 
-    print(json.dumps(o, indent=2))
+    # print(json.dumps(o, indent=2))
 
     # Convert and exported as XML file
     newXML = JsonParseXML(o)
     newXML = str(newXML, "utf-8")
     newXML = newXML.replace("<root>", "")
     newXML = newXML.replace("</root>", "")
+    print("Exporting patch", str(k) + "_rand_patch.XML")
     f = open("exported/" + str(k) + "_rand_patch.XML", "w")
     f.write(newXML)
     f.close()
