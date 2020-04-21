@@ -1,3 +1,5 @@
+import os
+
 import xmltodict
 from xml.etree.ElementTree import Element, tostring
 from xmljson import badgerfish as bf
@@ -188,6 +190,10 @@ for k in range(0, generating):
     newXML = newXML.replace("<root>", "")
     newXML = newXML.replace("</root>", "")
     print("Exporting patch", str(k) + "_rand_patch.XML")
+
+    if not os.path.exists('exported'):
+        os.makedirs('exported')
+
     f = open("exported/" + str(k) + "_rand_patch.XML", "w")
     f.write(newXML)
     f.close()
